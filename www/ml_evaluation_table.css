@@ -1,0 +1,42 @@
+.skin-black .sidebar-menu>li.active>a,
+  .skin-black .treeview-menu>li.active>a{
+  color: #74E39A; border-left-color: #74E39A;
+}
+.skin-black .sidebar-menu>li:hover>a,
+  .skin-black .treeview-menu>li>a:hover{
+  color: #8ba795; border-left-color: #8ba795;
+}
+.skin-black .sidebar a, .skin-black .treeview-menu>li>a {
+  color: #384246;
+}
+.control-label, .selectize-input{
+  font-family: 'Segoe UI',Helvetica,'Source Sans Pro',
+    Arial,sans-serif;
+}
+.skin-black .nav-tabs-custom>.nav-tabs>li.active{
+  border-top-color: #989898;
+}
+.control-label{
+  color: #384246;
+}
+.selectize-input{
+  color: #222D32;
+}
+.skin-black .content-wrapper{
+  background-color: #222D32;
+}
+.irs-bar{
+  border-top: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+}
+.irs-bar-edge{
+  border: 1px solid #333333;
+}
+.eval-header{
+  color: #384246;
+  font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+.eval-cell{
+  color: #384246;
+  font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
+}
