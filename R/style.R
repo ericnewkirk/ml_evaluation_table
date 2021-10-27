@@ -1,5 +1,4 @@
 `%>%` <- magrittr::`%>%`
-load("data/eval.rda")
 
 # app colors
 black <- "#222D32"

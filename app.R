@@ -114,12 +114,10 @@ ui <- function(request) {
 server = function(input, output, session) {
   
   purrr::walk(
-    c("R/style.R", "R/echarts.R", "R/reactable.R"),
+    c("R/style.R", "R/reactable.R", "R/echarts.R"),
     source,
     local = TRUE
   )
-  
-  load("data/eval.rda")
   
   # confidence slider change
   shiny::observeEvent(input$eval_table_conf, {

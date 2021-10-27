@@ -1,3 +1,5 @@
+load("data/eval.rda")
+
 calc_eval <- function(min_conf) {
   
   eval %>% 
@@ -69,10 +71,10 @@ eval_table_bar = function(label, width) {
   
 }
 
-c_col <- function(name) {
+c_col <- function(name, align = "right") {
   reactable::colDef(
     name = name,
-    align = "right",
+    align = align,
     width = 80,
     style = list(color = bright_green),
     cell = function(value) {
@@ -85,10 +87,10 @@ c_col <- function(name) {
   )
 }
 
-inc_col <- function(name) {
+inc_col <- function(name, align = "left") {
   reactable::colDef(
     name = name,
-    align = "left",
+    align = align,
     width = 80,
     style = list(color = medium_gray),
     cell = function(value) {
@@ -138,8 +140,8 @@ eval_table <- function(min_conf) {
         ),
         true_pos = c_col("True +"),
         false_neg = inc_col("False -"),
-        true_neg = c_col("True -"),
-        false_pos = inc_col("False +"),
+        true_neg = c_col("True -", "left"),
+        false_pos = inc_col("False +", "right"),
         accuracy = reactable::colDef(
           name = "Accuracy",
           minWidth = 80,
