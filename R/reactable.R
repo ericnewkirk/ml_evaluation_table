@@ -1,3 +1,47 @@
+calc_eval <- function(min_conf) {
+  
+  eval %>% 
+    dplyr::group_by(Species) %>% 
+    dplyr::summarize(
+      n = dplyr::n(),
+      true_pos = sum(
+        dplyr::case_when(
+          ModelConfidence < min_conf ~ 0L,
+          TRUE ~ as.integer(Match)
+        )
+      ),
+      false_neg = n - true_pos
+    ) %>% 
+    dplyr::mutate(
+      false_pos = purrr::map_int(
+        Species,
+        ~ eval %>% 
+          dplyr::filter(
+            Match == 0,
+            ModelSpecies == .x,
+            ModelConfidence >= min_conf
+          ) %>% 
+          nrow()
+      ),
+      true_neg = purrr::map_int(
+        Species,
+        ~ eval %>% 
+          dplyr::filter(
+            Species != .x,
+            ModelSpecies != .x | ModelConfidence < min_conf
+          ) %>% 
+          nrow()
+      ),
+      accuracy = (true_pos + true_neg) / nrow(eval),
+      precision = tidyr::replace_na(
+        true_pos / (true_pos + false_pos),
+        0
+      ),
+      recall = true_pos / n
+    )
+  
+}
+
 eval_table_bar = function(label, width) {
   
   if (is.na(label) || is.null(label)) {
@@ -6,33 +50,20 @@ eval_table_bar = function(label, width) {
   
   bar <- htmltools::div(
     title = as.character(round(label, 2)),
+    class = "eval-bar",
     style = list(
-      background = bright_green,
-      color = "#FFFFFF",
-      width = width,
-      height = "16px",
-      textAlign = "left",
-      whiteSpace = "nowrap"
+      width = width
     ),
     label
   )
   
   chart <- htmltools::div(
-    style = list(
-      flexGrow = 1,
-      background = medium_gray,
-      color = "#FFFFFF",
-      textAlign = "right",
-      display = "inline"
-    ),
+    class = "eval-bar-bg",
     bar
   )
   
   htmltools::div(
-    style = list(
-      display = "flex",
-      alignItems = "center"
-    ),
+    class = "eval-bar-wrapper",
     chart
   )
   
@@ -43,7 +74,7 @@ c_col <- function(name) {
     name = name,
     align = "right",
     width = 80,
-    style = list(color = medium_green),
+    style = list(color = bright_green),
     cell = function(value) {
       format(
         value,
@@ -86,7 +117,15 @@ eval_table <- function(min_conf) {
       defaultSortOrder = "desc",
       defaultColDef = def_col(maxWidth = 250),
       pagination = FALSE,
+      onClick = "expand",
+      height = "75vh",
       columns = list(
+        Species = reactable::colDef(
+          style = list(
+            color = bright_green,
+            fontWeight = 600
+          )
+        ),
         n = reactable::colDef(
           name = "Total Photos",
           cell = function(value) {
@@ -154,14 +193,5 @@ eval_table <- function(min_conf) {
         eval_plot(index, min_conf)
       }
     )
-  
-}
-
-eval_plot <- function(index, min_conf) {
-  
-  shiny::div(
-    embedded_plot(eval_species(index), min_conf),
-    style = "padding-left: 10%;"
-  )
   
 }
