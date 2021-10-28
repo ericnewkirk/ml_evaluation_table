@@ -33,34 +33,47 @@ ml_eval_css <- function() {
         sprintf(".skin-black .sidebar a, .skin-black .treeview-menu>li>a {
           color: %s;
         }", dark_gray),
-        sprintf(".skin-black .sidebar-menu>li>.treeview-menu, .skin-black .content-wrapper {
-          background-color: %s;
+        sprintf(".skin-black .sidebar-menu>li>.treeview-menu,
+          .skin-black .content-wrapper,
+          .nav-tabs-custom>.nav-tabs {
+            background-color: %s;
         }", black),
-        sprintf(".skin-black .nav-tabs-custom>.nav-tabs>li.active{
+        sprintf(".skin-black .nav-tabs-custom>.nav-tabs>li.active {
           border-top-color: %s;
-        }", medium_gray),
+        }", dark_gray),
+        sprintf(".nav-tabs-custom>.nav-tabs {
+          border-bottom-color: %s;
+        }", dark_gray),
+        sprintf(".nav-tabs-custom>.nav-tabs>li.active>a {
+          border-right-color: %s;
+          color: %s;
+          background-color: %s;
+        }", dark_gray, medium_gray, near_black),
         sprintf(".control-label, .eval-cell {
           font-family: %s;
         }", data_ff),
-        sprintf(".control-label, .eval-bar {
-          color: %s;
-        }", dark_gray),
-        sprintf(".nav-tabs-custom, .eval-cell {
-          background-color: %s;
-        }", dark_gray),
+        sprintf(".nav-tabs-custom, .eval-cell, 
+          .nav-tabs-custom>.tab-content {
+            background-color: %s;
+        }", near_black),
         sprintf(".eval-header {
           color: %s;
+          background-color: %s;
+          border-bottom: 2px solid %s;
           font-family: %s;
-        }", medium_green, label_ff),
-        sprintf(".eval-cell {
+        }", medium_gray, near_black, dark_gray, label_ff),
+        sprintf(".control-label, .eval-cell {
           color: %s;
         }", medium_gray),
         sprintf(".eval-bar {
+          color: %s;
           background-color: %s;
+          border: 1px solid %s;
           height: 16px;
           text-align: left;
           white-space: nowrap;
-        }", bright_green),
+          line-height: 1;
+        }", dark_gray, pale_green, bright_green),
         sprintf(".eval-bar-bg {
           flex-grow: 1;
           background-color: %s;
@@ -75,7 +88,70 @@ ml_eval_css <- function() {
         }", bright_green),
         sprintf(".rt-td {
           border-top: 1px solid %s;
+        }", dark_gray),
+        "::-webkit-scrollbar {
+          width: 8px;
+        }",
+        sprintf("::-webkit-scrollbar-thumb {
+          background-color: %s;
+          border-radius: 4px;
+        }", medium_gray),
+        sprintf("::-webkit-scrollbar-thumb:hover {
+          background-color: %s;
+        }", pale_green),
+        sprintf("::-webkit-scrollbar-track {
+          background-color: %s;
         }", near_black),
+        ".irs-from:after, .irs-to:after, .irs-single:after {
+          border-top-color: transparent;
+        }",
+        sprintf(".irs-min, .irs-max {
+          color: %s;
+          background-color: %s;
+        }", near_black, near_black),
+        sprintf(".irs-from, .irs-to, .irs-single {
+          color: %s;
+          font-size: 14px;
+          background-color: %s !important;
+        }", bright_green, near_black),
+        sprintf(".irs-min, .irs-max {
+          color: %s;
+          background: %s !important;
+        }", near_black, near_black),
+        sprintf(".irs-line-left, .irs-line-mid, .irs-line-right {
+          background: %s !important;
+          border-bottom: 1px solid %s;
+          border-top: 1px solid %s;
+        }", near_black, pale_green, pale_green),
+        sprintf(".irs-bar, .irs-bar-edge {
+          background: %s !important;
+        }", bright_green),
+        ".irs-bar-edge, .irs-line-left {
+          border-top-left-radius: 3px;
+          border-bottom-left-radius: 3px;
+        }",
+        sprintf(".irs-line-right {
+          border-top-right-radius: 3px;
+          border-bottom-right-radius: 3px;
+          border-right: 1px solid %s;
+        }", pale_green),
+        ".irs-slider {
+          top: 19px;
+          background: transparent;
+        }",
+        ".btn.disabled {
+          opacity: 25%;
+        }",
+        sprintf(".btn-default {
+          color: %s;
+          background-color: %s;
+          border-color: %s;
+        }", bright_green, medium_gray, dark_gray),
+        sprintf(".btn-default.hover, .btn-default:active, 
+          .btn-default:focus, .btn-default:hover {
+            color: %s;
+            background-color: %s;
+        }", bright_green, pale_green),
         sep = "\n"
       )
     )

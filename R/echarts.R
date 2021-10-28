@@ -176,8 +176,8 @@ e_zoom_cb <- function(e, cutoff = 6, n_ser = 1) {
       
       // set options based on number of values
       if (span > %s) {
-        gb = 210;
-        ng = 120;
+        gb = 150;
+        ng = 60;
         angle = 45;
         overflow = 'truncate';
         lbl = false;
@@ -248,8 +248,8 @@ eval_plot <- function(index, min_conf = 0) {
         lbl = TRUE
       ),
     ~ list(
-      gb = 210,
-      ng = 120,
+      gb = 150,
+      ng = 60,
       angle = 45,
       overflow = "truncate",
       lbl = FALSE
@@ -278,7 +278,7 @@ eval_plot <- function(index, min_conf = 0) {
     echarts4r::e_color(background = near_black) %>% 
     # add title
     echarts4r::e_title(
-      sprintf("Model IDs for %s Photos", x$Species[1]),
+      sprintf("Model IDs for %s Photos", eval_species(index)),
       textStyle = list(color = medium_gray)
     ) %>% 
     # add tooltip

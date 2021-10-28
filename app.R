@@ -55,12 +55,13 @@ ui <- function(request) {
                   shiny::fluidRow(
                     # label in its own column for inline layout
                     shiny::column(
-                      width = 4,
+                      width = 3,
                       shiny::div(
                         "Minimum Confidence:",
                         class = "control-label",
                         style = "text-align: right;"
-                      )
+                      ),
+                      style = "margin-top: 15px;"
                     ),
                     # slider
                     shiny::column(
@@ -73,18 +74,20 @@ ui <- function(request) {
                         value = 0,
                         step = 0.01,
                         round = 2,
-                        ticks = FALSE
+                        ticks = FALSE,
+                        width = "100%"
                       )
                     ),
                     # update button
                     shiny::column(
-                      width = 2,
+                      width = 3,
                       shiny::actionButton(
                         "update_conf",
                         "Update",
                         width = "100%",
                         class = "btn btn-block btn-default"
-                      )
+                      ),
+                      style = "margin-top: 12px;"
                     )
                   )
                 )
@@ -113,10 +116,19 @@ ui <- function(request) {
 # create server  
 server = function(input, output, session) {
   
+  # load code
   purrr::walk(
     c("R/style.R", "R/reactable.R", "R/echarts.R"),
     source,
     local = TRUE
+  )
+  
+  # add bar for slider handle
+  shinyjs::runjs(
+    "var span = $('<span />').attr({
+      'style':'margin-left: 4px; border-left: 2px solid #74E39A;'
+    }).html('&nbsp');
+    $('.irs-slider').html(span);"
   )
   
   # confidence slider change
