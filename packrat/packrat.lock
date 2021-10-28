@@ -171,6 +171,12 @@ Source: CRAN
 Version: 2.0.1
 Hash: d3c166b0573ae8c918edf7221dfe7380
 
+Package: markdown
+Source: CRAN
+Version: 1.1
+Hash: 1b6a18fd395589425e338a47b999099f
+Requires: mime, xfun
+
 Package: mime
 Source: CRAN
 Version: 0.9
@@ -338,6 +344,11 @@ Package: withr
 Source: CRAN
 Version: 2.4.1
 Hash: 490523cef72232b12a66f0e307e4ee7e
+
+Package: xfun
+Source: CRAN
+Version: 0.22
+Hash: d60cc7fc6c177d44a45c85819909aacb
 
 Package: xtable
 Source: CRAN

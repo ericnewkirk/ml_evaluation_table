@@ -20,6 +20,7 @@ ml_eval_css <- function() {
   shiny::tags$style(
     shiny::HTML(
       paste(
+        # shinydashboard hacks
         sprintf(".skin-black .sidebar-menu>li.active>a,
           .skin-black .treeview-menu>li.active>a {
           color: %s;
@@ -49,6 +50,7 @@ ml_eval_css <- function() {
           color: %s;
           background-color: %s;
         }", dark_gray, medium_gray, near_black),
+        # inputs and reactable
         sprintf(".control-label, .eval-cell {
           font-family: %s;
         }", data_ff),
@@ -89,6 +91,7 @@ ml_eval_css <- function() {
         sprintf(".rt-td {
           border-top: 1px solid %s;
         }", dark_gray),
+        # scrollbar
         "::-webkit-scrollbar {
           width: 8px;
         }",
@@ -102,6 +105,7 @@ ml_eval_css <- function() {
         sprintf("::-webkit-scrollbar-track {
           background-color: %s;
         }", near_black),
+        # slider
         ".irs-from:after, .irs-to:after, .irs-single:after {
           border-top-color: transparent;
         }",
@@ -142,6 +146,7 @@ ml_eval_css <- function() {
         ".btn.disabled {
           opacity: 25%;
         }",
+        # action button
         sprintf(".btn-default {
           color: %s;
           background-color: %s;
@@ -152,6 +157,17 @@ ml_eval_css <- function() {
             color: %s;
             background-color: %s;
         }", bright_green, pale_green),
+        # generic (for markdown about page)
+        sprintf("code {
+          color: %s;
+          background-color: %s;
+        }", bright_green, black),
+        # sprintf("h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, li {
+        #   color: %s;
+        # }", pale_green),
+        sprintf(" body {
+          color: %s;
+        }", pale_green),
         sep = "\n"
       )
     )

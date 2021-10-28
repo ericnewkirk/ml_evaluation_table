@@ -30,6 +30,10 @@ ui <- function(request) {
           shinydashboard::menuSubItem(
             "Predicted Accuracy",
             "eval_pred"
+          ),
+          shinydashboard::menuSubItem(
+            "About",
+            "about"
           )
         )
       )
@@ -101,6 +105,22 @@ ui <- function(request) {
                     height = "75vh"
                   ) %>% 
                     with_spinner()
+                )
+              )
+            )
+          )
+        ),
+        shinydashboard::tabItem(
+          "about",
+          shinydashboard::tabBox(
+            width = 8,
+            shiny::tabPanel(
+              title = "Background",
+              # inputs
+              shiny::fluidRow(
+                shiny::column(
+                  width = 12,
+                  shiny::includeMarkdown("README.md")
                 )
               )
             )
