@@ -71,7 +71,7 @@ eval_table_bar = function(label, width) {
   
 }
 
-c_col <- function(name, align = "right") {
+c_col <- function(name, align = "right", ...) {
   reactable::colDef(
     name = name,
     align = align,
@@ -83,11 +83,12 @@ c_col <- function(name, align = "right") {
         big.mark = ",",
         scientific = FALSE
       )
-    }
+    },
+    ...
   )
 }
 
-inc_col <- function(name, align = "left") {
+inc_col <- function(name, align = "left", ...) {
   reactable::colDef(
     name = name,
     align = align,
@@ -99,7 +100,8 @@ inc_col <- function(name, align = "left") {
         big.mark = ",",
         scientific = FALSE
       )
-    }
+    },
+    ...
   )
 }
 
@@ -108,6 +110,7 @@ def_col <- function(...) {
     align = "center",
     headerClass = "eval-header",
     class = "eval-cell",
+    footerClass = "eval-cell",
     ...
   )
 }
@@ -126,6 +129,11 @@ eval_table <- function(min_conf) {
           style = list(
             color = bright_green,
             fontWeight = 600
+          ),
+          footer = "Total",
+          footerStyle = list(
+            color = bright_green,
+            fontWeight = 600
           )
         ),
         n = reactable::colDef(
@@ -136,10 +144,49 @@ eval_table <- function(min_conf) {
               big.mark = ",",
               scientific = FALSE
             )
-          }
+          },
+          footer = function(values) {
+            format(
+              sum(values),
+              big.mark = ",",
+              scientific = FALSE
+            )
+          },
+          footerStyle = list(
+            color = medium_gray,
+            fontWeight = 600
+          )
         ),
-        true_pos = c_col("True +"),
-        false_neg = inc_col("False -"),
+        true_pos = c_col(
+          "True +",
+          footer = htmlwidgets::JS("function(colInfo) {
+            var total = 0
+            colInfo.data.forEach(function(row) {
+              total += row[colInfo.column.id]
+            })
+            return total.toLocaleString()
+          }"),
+          footerStyle = list(
+            color = bright_green,
+            fontWeight = 600
+          )
+        ),
+        false_neg = inc_col(
+          "False -",
+          footer = htmlwidgets::JS("function(colInfo) {
+            var total = 0;
+            var correct = 0;
+            colInfo.data.forEach(function(row) {
+              total += row['n'];
+              correct += row['true_pos'];
+            })
+            return '(' + (correct * 100 / total).toFixed(2) + '%)'
+          }"),
+          footerStyle = list(
+            color = bright_green,
+            fontWeight = 600
+          )
+        ),
         true_neg = c_col("True -", "left"),
         false_pos = inc_col("False +", "right"),
         accuracy = reactable::colDef(
