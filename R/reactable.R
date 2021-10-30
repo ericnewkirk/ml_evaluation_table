@@ -51,7 +51,6 @@ eval_table_bar = function(label, width) {
   }
   
   bar <- htmltools::div(
-    title = as.character(round(label, 2)),
     class = "eval-bar",
     style = list(
       width = width
