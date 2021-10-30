@@ -145,20 +145,6 @@ eval_table <- function(min_conf) {
               scientific = FALSE
             )
           },
-          footer = function(values) {
-            format(
-              sum(values),
-              big.mark = ",",
-              scientific = FALSE
-            )
-          },
-          footerStyle = list(
-            color = medium_gray,
-            fontWeight = 600
-          )
-        ),
-        true_pos = c_col(
-          "True +",
           footer = htmlwidgets::JS("function(colInfo) {
             var total = 0
             colInfo.data.forEach(function(row) {
@@ -167,26 +153,25 @@ eval_table <- function(min_conf) {
             return total.toLocaleString()
           }"),
           footerStyle = list(
-            color = bright_green,
+            color = medium_gray,
             fontWeight = 600
           )
         ),
-        false_neg = inc_col(
-          "False -",
+        true_pos = c_col(
+          "True +",
           footer = htmlwidgets::JS("function(colInfo) {
             var total = 0;
-            var correct = 0;
             colInfo.data.forEach(function(row) {
-              total += row['n'];
-              correct += row['true_pos'];
+              total += row[colInfo.column.id];
             })
-            return '(' + (correct * 100 / total).toFixed(2) + '%)'
+            return total.toLocaleString();
           }"),
           footerStyle = list(
             color = bright_green,
             fontWeight = 600
           )
         ),
+        false_neg = inc_col("False -"),
         true_neg = c_col("True -", "left"),
         false_pos = inc_col("False +", "right"),
         accuracy = reactable::colDef(
@@ -197,12 +182,25 @@ eval_table <- function(min_conf) {
             eval_table_bar(value, bar_w)
           },
           header = shiny::div(
-            "Accuracy",
-            shiny::tags$abbr(
-              style = "cursor: help; margin-left: 10px;",
-              title = "(true positives + true negatives) / total photos",
-              "?"
+            tippy::tippy(
+              "Accuracy",
+              "(true positives + true negatives) / total photos",
+              placement = "top",
+              flip = FALSE
             )
+          ),
+          footer = htmlwidgets::JS("function(colInfo) {
+            var total = 0;
+            var correct = 0;
+            colInfo.data.forEach(function(row) {
+              total += row['n'];
+              correct += row['true_pos'];
+            })
+            return (correct * 100 / total).toFixed(2) + '%';
+          }"),
+          footerStyle = list(
+            color = bright_green,
+            fontWeight = 600
           )
         ),
         precision = reactable::colDef(
@@ -213,12 +211,25 @@ eval_table <- function(min_conf) {
             eval_table_bar(value, bar_w)
           },
           header = shiny::div(
-            "Precision",
-            shiny::tags$abbr(
-              style = "cursor: help; margin-left: 10px;",
-              title = "true positives / (true positives + false positives)",
-              "?"
+            tippy::tippy(
+              "Precision",
+              "true positives / (true positives + false positives)",
+              placement = "top",
+              flip = FALSE
             )
+          ),
+          footer = htmlwidgets::JS("function(colInfo) {
+            var total = 0;
+            var correct = 0;
+            colInfo.data.forEach(function(row) {
+              total += (row['true_pos'] + row['false_pos']);
+              correct += row['true_pos'];
+            })
+            return (correct * 100 / total).toFixed(2) + '%';
+          }"),
+          footerStyle = list(
+            color = bright_green,
+            fontWeight = 600
           )
         ),
         recall = reactable::colDef(
@@ -229,11 +240,11 @@ eval_table <- function(min_conf) {
             eval_table_bar(value, bar_w)
           },
           header = shiny::div(
-            "Recall",
-            shiny::tags$abbr(
-              style = "cursor: help; margin-left: 10px;",
-              title = "true positives / (true positives + false negatives)",
-              "?"
+            tippy::tippy(
+              "Recall",
+              "true positives / (true positives + false negatives)",
+              placement = "top",
+              flip = FALSE
             )
           )
         )

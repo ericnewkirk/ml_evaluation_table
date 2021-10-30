@@ -55,7 +55,7 @@ ml_eval_css <- function() {
           font-family: %s;
         }", data_ff),
         sprintf(".nav-tabs-custom, .eval-cell, 
-          .nav-tabs-custom>.tab-content {
+          .nav-tabs-custom>.tab-content, .ReactTable {
             background-color: %s;
         }", near_black),
         sprintf(".eval-header {
@@ -63,6 +63,8 @@ ml_eval_css <- function() {
           background-color: %s;
           border-bottom: 2px solid %s;
           font-family: %s;
+          padding-top: 15px;
+          padding-bottom: 15px;
         }", medium_gray, near_black, dark_gray, label_ff),
         sprintf(".control-label, .eval-cell {
           color: %s;
@@ -157,14 +159,17 @@ ml_eval_css <- function() {
             color: %s;
             background-color: %s;
         }", bright_green, pale_green),
+        # tooltip
+        sprintf(".tippy-tooltip {
+          color: %s;
+          background-color: %s;
+          font-size: 14px;
+        })", bright_green, black),
         # generic (for markdown about page)
         sprintf("code {
           color: %s;
           background-color: %s;
         }", bright_green, black),
-        # sprintf("h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, li {
-        #   color: %s;
-        # }", pale_green),
         sprintf(" body {
           color: %s;
         }", pale_green),
