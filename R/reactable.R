@@ -184,7 +184,9 @@ eval_table <- function(min_conf) {
           header = shiny::div(
             tippy::tippy(
               "Accuracy",
-              "(true positives + true negatives) / total photos"
+              "(true positives + true negatives) / total photos",
+              placement = "top",
+              flip = FALSE
             )
           ),
           footer = htmlwidgets::JS("function(colInfo) {
@@ -211,7 +213,9 @@ eval_table <- function(min_conf) {
           header = shiny::div(
             tippy::tippy(
               "Precision",
-              "true positives / (true positives + false positives)"
+              "true positives / (true positives + false positives)",
+              placement = "top",
+              flip = FALSE
             )
           ),
           footer = htmlwidgets::JS("function(colInfo) {
@@ -238,7 +242,9 @@ eval_table <- function(min_conf) {
           header = shiny::div(
             tippy::tippy(
               "Recall",
-              "true positives / (true positives + false negatives)"
+              "true positives / (true positives + false negatives)",
+              placement = "top",
+              flip = FALSE
             )
           )
         )
