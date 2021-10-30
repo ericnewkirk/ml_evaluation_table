@@ -8,6 +8,7 @@ ui <- function(request) {
     shinydashboard::dashboardHeader(title = "ML Evaluation Table"),
     # sidebar
     shinydashboard::dashboardSidebar(
+      collapsed = TRUE,
       shinydashboard::sidebarMenu(
         id = "sb_tabs",
         shinydashboard::menuItem(
