@@ -324,6 +324,12 @@ Version: 1.1.0
 Hash: 1c7cea9ea925b701a93f378ec7233ee1
 Requires: ellipsis, glue, rlang, vctrs, purrr
 
+Package: tippy
+Source: CRAN
+Version: 0.1.0
+Hash: 2030cd94705353c2ededf6225965210b
+Requires: htmltools, htmlwidgets, jsonlite, shiny
+
 Package: utf8
 Source: CRAN
 Version: 1.1.4
