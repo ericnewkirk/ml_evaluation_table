@@ -59,17 +59,17 @@ ui <- function(request) {
                   shiny::fluidRow(
                     # label in its own column for inline layout
                     shiny::column(
-                      width = 3,
+                      width = 4,
                       shiny::div(
                         "Minimum Confidence:",
                         class = "control-label",
                         style = "text-align: right;"
                       ),
-                      style = "margin-top: 15px;"
+                      style = "margin-top: 16px;"
                     ),
                     # slider
                     shiny::column(
-                      width = 6,
+                      width = 4,
                       shiny::sliderInput(
                         "eval_table_conf",
                         label = NULL,
@@ -80,18 +80,28 @@ ui <- function(request) {
                         round = 2,
                         ticks = FALSE,
                         width = "100%"
+                      ),
+                      shiny::span(
+                        textOutput("eval_ids"),
+                        style = paste(
+                          "position: absolute;",
+                          "text-align: center;",
+                          "top: 30px;",
+                          "width: 100%;",
+                          sprintf("color: %s;", pale_green)
+                        )
                       )
                     ),
                     # update button
                     shiny::column(
-                      width = 3,
+                      width = 4,
                       shiny::actionButton(
                         "update_conf",
                         "Update",
                         width = "100%",
                         class = "btn btn-block btn-default"
                       ),
-                      style = "margin-top: 12px;"
+                      style = "margin-top: 10px;"
                     )
                   )
                 )
@@ -120,7 +130,18 @@ ui <- function(request) {
               shiny::fluidRow(
                 shiny::column(
                   width = 12,
-                  shiny::includeMarkdown("README.md")
+                  shiny::includeMarkdown("README.md"),
+                  shiny::div(
+                    shiny::a(
+                      "View on github",
+                      href = paste(
+                        "https://www.github.com",
+                        "ericnewkirk/ml_evaluation_table",
+                        sep = "/"
+                      )
+                    ),
+                    style = "text-align: center;"
+                  )
                 )
               )
             )
@@ -150,6 +171,20 @@ server = function(input, output, session) {
     }).html('&nbsp');
     $('.irs-slider').html(span);"
   )
+  
+  # show number of ids that meet confidence criteria
+  output$eval_ids <- shiny::renderText({
+    
+    eval %>% 
+      dplyr::filter(
+        ModelConfidence >= input$eval_table_conf,
+        !is.na(ModelSpecies)
+      ) %>% 
+      nrow() %>% 
+      format(big.mark = ",", scientific = FALSE) %>% 
+      paste("IDs")
+    
+  })
   
   # confidence slider change
   shiny::observeEvent(input$eval_table_conf, {
