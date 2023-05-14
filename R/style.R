@@ -1,4 +1,5 @@
 `%>%` <- magrittr::`%>%`
+markdown::smartypants("1/2 (c)\n")
 
 # app colors
 black <- "#222D32"
